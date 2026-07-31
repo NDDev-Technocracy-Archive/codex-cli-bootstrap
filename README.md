@@ -1,5 +1,9 @@
 # codex-cli-bootstrap
 
+> **DEPRECATED.** This repository is archived and no longer maintained.
+> It is kept read-only for reference; its GDS anchor records
+> `lifecycle: archived` under `portfolio:archived-projects`.
+
 [![Release](https://img.shields.io/github/v/release/rldyourmnd/codex-cli-bootstrap?sort=semver)](https://github.com/rldyourmnd/codex-cli-bootstrap/releases)
 [![CI](https://github.com/rldyourmnd/codex-cli-bootstrap/actions/workflows/ci.yml/badge.svg)](https://github.com/rldyourmnd/codex-cli-bootstrap/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
