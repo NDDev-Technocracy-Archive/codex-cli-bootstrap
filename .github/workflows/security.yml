@@ -1,0 +1,53 @@
+name: Security
+
+# Reusable ci-workflows security suite for this public repository. Each job
+# delegates to a digest-pinned reusable workflow from
+# NDDev-it-com/ci-workflows@<pinned-sha>.
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  actionlint:
+    name: actionlint
+    uses: NDDev-it-com/ci-workflows/.github/workflows/actionlint.yml@c26c516559c01166a35b852c0d2a925cc1bd8db8
+    permissions:
+      contents: read
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    uses: NDDev-it-com/ci-workflows/.github/workflows/secret-scan.yml@c26c516559c01166a35b852c0d2a925cc1bd8db8
+    permissions:
+      contents: read
+
+  zizmor-sarif:
+    name: zizmor (SARIF)
+    uses: NDDev-it-com/ci-workflows/.github/workflows/zizmor-sarif.yml@c26c516559c01166a35b852c0d2a925cc1bd8db8
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+  dependency-review:
+    name: Dependency review
+    uses: NDDev-it-com/ci-workflows/.github/workflows/public-dependency-review.yml@c26c516559c01166a35b852c0d2a925cc1bd8db8
+    permissions:
+      contents: read
+      pull-requests: write
+
+  scorecard:
+    name: OSSF Scorecard
+    uses: NDDev-it-com/ci-workflows/.github/workflows/public-scorecard.yml@c26c516559c01166a35b852c0d2a925cc1bd8db8
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+      security-events: write
