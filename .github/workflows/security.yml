@@ -18,19 +18,19 @@ permissions: {}
 jobs:
   actionlint:
     name: actionlint
-    uses: NDDev-it-com/ci-workflows/.github/workflows/actionlint.yml@ca538d59aef41c1bb03c3669366c368128d5af88
+    uses: NDDev-it-com/ci-workflows/.github/workflows/actionlint.yml@b05016e27151e2d5b3f07e1d856fff50f635ab15
     permissions:
       contents: read
 
   secret-scan:
     name: Secret scan (gitleaks)
-    uses: NDDev-it-com/ci-workflows/.github/workflows/secret-scan.yml@ca538d59aef41c1bb03c3669366c368128d5af88
+    uses: NDDev-it-com/ci-workflows/.github/workflows/secret-scan.yml@b05016e27151e2d5b3f07e1d856fff50f635ab15
     permissions:
       contents: read
 
   zizmor-sarif:
     name: zizmor (SARIF)
-    uses: NDDev-it-com/ci-workflows/.github/workflows/zizmor-sarif.yml@ca538d59aef41c1bb03c3669366c368128d5af88
+    uses: NDDev-it-com/ci-workflows/.github/workflows/zizmor-sarif.yml@b05016e27151e2d5b3f07e1d856fff50f635ab15
     permissions:
       actions: read
       contents: read
@@ -38,14 +38,14 @@ jobs:
 
   dependency-review:
     name: Dependency review
-    uses: NDDev-it-com/ci-workflows/.github/workflows/public-dependency-review.yml@ca538d59aef41c1bb03c3669366c368128d5af88
+    uses: NDDev-it-com/ci-workflows/.github/workflows/public-dependency-review.yml@b05016e27151e2d5b3f07e1d856fff50f635ab15
     permissions:
       contents: read
       pull-requests: write
 
   scorecard:
     name: OSSF Scorecard
-    uses: NDDev-it-com/ci-workflows/.github/workflows/public-scorecard.yml@ca538d59aef41c1bb03c3669366c368128d5af88
+    uses: NDDev-it-com/ci-workflows/.github/workflows/public-scorecard.yml@b05016e27151e2d5b3f07e1d856fff50f635ab15
     permissions:
       contents: read
       actions: read
