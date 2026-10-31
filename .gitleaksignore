@@ -1,0 +1,16 @@
+# Placeholder tokens in vendored skill and Cloudflare documentation examples.
+# Reviewed 2026-11-01 during the CI baseline migration; only these exact historical findings are suppressed.
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/README.md:curl-auth-header:13
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/api.md:curl-auth-header:27
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/api.md:curl-auth-header:84
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/bindings/patterns.md:generic-api-key:182
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/bindings/patterns.md:generic-api-key:82
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/pipelines/api.md:curl-auth-header:113
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:177
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:178
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:179
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:194
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:195
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:197
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:198
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/figma-implement-design/SKILL.md:generic-api-key:57
