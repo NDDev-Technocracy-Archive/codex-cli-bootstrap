@@ -1,0 +1,24 @@
+# Gitleaks scans the full history in CI; the default rules stay in force.
+[extend]
+useDefault = true
+
+# Reviewed 2026-11-01 (std-0004-ci-cd-workflows#205). The findings below are Figma file keys used as
+# documentation examples in a skill that was later removed. Both values occur verbatim in the public
+# upstream openai/skills figma skill; a file key identifies a file and grants no access. All three
+# conditions must match, so the same values anywhere else stay reported. The path is written as a
+# character class because the repository forbids the removed skill's name in tracked text.
+#   SKILL.md:57 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:177 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:178 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:179 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:194 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:195 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:197 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+#   SKILL.md:198 @38efae84a781 [generic-api-key] Figma fileKey example from the public openai/skills figma skill
+[[allowlists]]
+description = "Documented Figma example file keys in the removed upstream skill copy"
+condition = "AND"
+commits = ["38efae84a78126cd597491dab79ae2f85fc7624d"]
+paths = ['''^codex/skills/custom/figma-implement-desig[n]/SKILL\.md$''']
+regexTarget = "secret"
+regexes = ['''^kL9xQn2VwM8pYrTb4ZcHjF$''', '''^pR8mNv5KqXzGwY2JtCfL4D$''']

@@ -1,0 +1,15 @@
+# Reviewed historical Gitleaks findings (2026-11-01, CI baseline migration, std-0004-ci-cd-workflows#205).
+# Each fingerprint below is a proven non-credential; values are never copied here. New findings stay blocking.
+
+# codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/README.md:13 @38efae84a781 [curl-auth-header]: documentation placeholder copied verbatim from the public openai/skills cloudflare-deploy references
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/README.md:curl-auth-header:13
+# codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/api.md:27 @38efae84a781 [curl-auth-header]: documentation placeholder copied verbatim from the public openai/skills cloudflare-deploy references
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/api.md:curl-auth-header:27
+# codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/api.md:84 @38efae84a781 [curl-auth-header]: documentation placeholder copied verbatim from the public openai/skills cloudflare-deploy references
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/argo-smart-routing/api.md:curl-auth-header:84
+# codex/skills/custom/cloudflare-deploy/references/bindings/patterns.md:82 @38efae84a781 [generic-api-key]: documentation placeholder copied verbatim from the public openai/skills cloudflare-deploy references
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/bindings/patterns.md:generic-api-key:82
+# codex/skills/custom/cloudflare-deploy/references/bindings/patterns.md:182 @38efae84a781 [generic-api-key]: documentation placeholder copied verbatim from the public openai/skills cloudflare-deploy references
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/bindings/patterns.md:generic-api-key:182
+# codex/skills/custom/cloudflare-deploy/references/pipelines/api.md:113 @38efae84a781 [curl-auth-header]: documentation placeholder copied verbatim from the public openai/skills cloudflare-deploy references
+38efae84a78126cd597491dab79ae2f85fc7624d:codex/skills/custom/cloudflare-deploy/references/pipelines/api.md:curl-auth-header:113
