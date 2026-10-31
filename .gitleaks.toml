@@ -1,0 +1,9 @@
+# Gitleaks scans the full history in CI. The default rules stay in force.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Reviewed 2026-11-01: placeholder keys in the documentation of a skill that has since been removed"
+commits = [
+  "38efae84a78126cd597491dab79ae2f85fc7624d",
+]
