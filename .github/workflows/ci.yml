@@ -2,108 +2,62 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
 
-defaults:
-  run:
-    shell: bash
+permissions: {}
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
-
-permissions:
-  contents: read
+  group: source-${{ github.run_id }}
+  cancel-in-progress: false
 
 jobs:
-  repo-consistency:
+  source:
+    name: Source and bundle
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30
+    permissions:
+      contents: read
     steps:
-      - name: Check out repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Prepare source tooling
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/prepare@c09f5939b8ca3ef1ddf72d825ff01d751e649292 # v0.6.60
         with:
-          persist-credentials: false
+          managed: 'false'
+          fetch-depth: '0'
+          python-version: '3.15.2'
+          tools: zizmor@1.32.0,shellcheck@0.11.0
+          tool-assets: tools/ci-tools.json
+          reports: dist
+      - name: Check source and build the actual portable bundle
+        id: project
+        run: just verify
+      - name: Complete source and bundle proof
+        if: always()
+        uses: NDDev-Technocracy-OpenNetwork/nddev-ci/actions/complete@c09f5939b8ca3ef1ddf72d825ff01d751e649292 # v0.6.60
+        with:
+          status: ${{ job.status }}
+          project-outcome: ${{ steps.project.outcome }}
+          task: source and bundle
+          task-type: build
+          name: source-bundle
+          reports: dist
 
-      - name: Install runner dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync ripgrep
+  merge-stops:
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@c09f5939b8ca3ef1ddf72d825ff01d751e649292 # v0.6.60
+    permissions:
+      contents: read
 
-      - name: Run repository consistency checks
-        run: bash ./scripts/check-repo-consistency.sh
-
-  agent-audit:
+  gate:
+    name: gate
+    needs: [source, merge-stops]
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-24.04
-    needs: repo-consistency
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - name: Check out repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Install runner dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-yaml ripgrep
-
-      - name: Run shared-agent audit
-        run: bash ./scripts/audit-codex-agents.sh
-
-  release-bundle-dry-run:
-    runs-on: ubuntu-24.04
-    needs:
-      - repo-consistency
-      - agent-audit
-    timeout-minutes: 15
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Install runner dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync ripgrep
-
-      - name: Build release bundle
-        run: bash ./scripts/build-release-bundle.sh --output-dir dist --version "ci-${GITHUB_RUN_NUMBER}"
-
-      - name: Upload dry-run release bundle
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: codex-cli-bootstrap-ci-bundle
-          path: dist/
-          if-no-files-found: error
-
-  workflows:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@c192c6adcf22088abf456635de614d42e8fa3f8d # nddev-cicd-v0.6.20
-        with:
-          capability: security
-      - name: Lint and audit workflows
-        run: |
-          actionlint
-          zizmor --offline --no-progress .github/workflows/ci.yml .github/workflows/security.yml
-      - name: Scan new pull request commits, or the full history on main
+      - name: Require source, actual bundle and security success
         env:
-          BASE: ${{ github.event.pull_request.base.sha }}
-          HEAD: ${{ github.event.pull_request.head.sha }}
-        run: |
-          if [ -n "$BASE" ]; then
-            gitleaks git --no-banner --redact --log-opts="$BASE..$HEAD" .
-          else
-            gitleaks git --no-banner --redact .
-          fi
-
+          SOURCE_RESULT: ${{ needs.source.result }}
+          STOPS_RESULT: ${{ needs.merge-stops.result }}
+        run: test "$SOURCE_RESULT" = success && test "$STOPS_RESULT" = success
