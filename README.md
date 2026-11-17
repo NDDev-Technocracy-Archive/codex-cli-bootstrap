@@ -137,6 +137,10 @@ scripts/codex-activate.sh --check-only
 This project uses only free GitHub-native automation suitable for a public open source repository.
 
 - CI validates repository consistency, agent-doc parity, and dry-runs the release bundle
+- `just check` runs owned offline source/profile and workflow/secret checks;
+  `just build` builds the real portable bundle and `just verify` does both
+- Source auditing uses repository-owned predicates and does not execute an
+  installed harness helper
 - Release automation builds a tagged portable bundle and publishes it to GitHub Releases
 - Dependabot keeps GitHub Actions dependencies current
 
